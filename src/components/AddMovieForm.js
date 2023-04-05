@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-const EditMovieForm = (props) => {
+const AddMovieForm = (props) => {
   const { push } = useHistory();
   const { id } = useParams();
   const { setMovies } = props;
@@ -26,20 +26,25 @@ const EditMovieForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let willAddMovie = {
+      ...movie,
+      id: (Math.random() + 1).toString(36).substring(7),
+    };
     axios
-      .put(`http://localhost:9000/api/movies/${id}`, movie)
+      .post(`http://localhost:9000/api/movies`, willAddMovie)
       .then((res) => {
         setMovies(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-    push(`/movies/${id}`);
+
+    push(`/movies/`);
   };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9000/api/movies/${id}`)
+      .get(`http://localhost:9000/api/movies/`)
       .then((res) => setMovie(res.data))
       .catch((err) => console.log(err.message));
   }, []);
@@ -50,7 +55,7 @@ const EditMovieForm = (props) => {
       <form onSubmit={handleSubmit}>
         <div className="p-5 pb-3 border-b border-zinc-200">
           <h4 className="text-xl font-bold">
-            Düzenleniyor <strong>{movie.title}</strong>
+            Ekleniyor <strong>{movie.title}</strong>
           </h4>
         </div>
 
@@ -105,18 +110,16 @@ const EditMovieForm = (props) => {
           <Link to={`/movies/`} className="myButton bg-zinc-500">
             Vazgeç
           </Link>
-          <Link to={`/movies/`} className="myButton bg-zinc-500">
-            <button
-              type="submit"
-              className="myButton bg-green-700 hover:bg-green-600"
-            >
-              Ekle
-            </button>
-          </Link>
+          <button
+            type="submit"
+            className="myButton bg-green-700 hover:bg-green-600"
+          >
+            Ekle
+          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default EditMovieForm;
+export default AddMovieForm;

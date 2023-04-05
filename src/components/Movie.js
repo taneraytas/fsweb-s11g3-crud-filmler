@@ -3,9 +3,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
-const Movie = (props) => {
-  const { addToFavorites } = props;
-
+const Movie = ({ addToFavorites, deleteMovie, favoriteMovies }) => {
   const [movie, setMovie] = useState("");
 
   const { id } = useParams();
@@ -51,16 +49,25 @@ const Movie = (props) => {
       </div>
 
       <div className="px-5 py-3 border-t border-zinc-200 flex justify-end gap-2">
-        <button className="myButton bg-blue-600 hover:bg-blue-500 ">
-          Favorilere ekle
+        <button
+          onClick={() => addToFavorites(movie)}
+          className="myButton bg-blue-600 hover:bg-blue-500 "
+        >
+          Favorilere Ekle
         </button>
+
         <Link
           to={`/movies/edit/${movie.id}`}
           className="myButton bg-blue-600 hover:bg-blue-500"
         >
           Edit
         </Link>
-        <button type="button" className="myButton bg-red-600 hover:bg-red-500">
+
+        <button
+          type="button"
+          className="myButton bg-red-600 hover:bg-red-500"
+          onClick={() => deleteMovie(id)}
+        >
           Sil
         </button>
       </div>

@@ -15,6 +15,7 @@ const App = (props) => {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const { push } = useHistory();
   useEffect(() => {
+    console.log("Hello");
     axios
       .get("http://localhost:9000/api/movies")
       .then((res) => {
@@ -23,7 +24,7 @@ const App = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [movies]);
+  }, []);
 
   const deleteMovie = (id) => {
     axios

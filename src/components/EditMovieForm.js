@@ -105,14 +105,12 @@ const EditMovieForm = (props) => {
           <Link to={`/movies/`} className="myButton bg-zinc-500">
             Vazgeç
           </Link>
-          <Link to={`/movies/`} className="myButton bg-zinc-500">
-            <button
-              type="submit"
-              className="myButton bg-green-700 hover:bg-green-600"
-            >
-              Ekle
-            </button>
-          </Link>
+          <button
+            type="submit"
+            className="myButton bg-green-700 hover:bg-green-600"
+          >
+            Ekle
+          </button>
         </div>
       </form>
     </div>
